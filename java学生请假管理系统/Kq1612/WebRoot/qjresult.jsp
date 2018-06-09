@@ -29,7 +29,7 @@
 		{
 		 	with (document.getElementById("memberForm")) {
 	            method = "post";
-	            action = "<%=path %>/QjServlet?mode=list&pageNoStr=1";
+	            action = "<%=path %>/QjServlet?mode=result&pageNoStr=1";
 	            submit();
 	        }
 		}
@@ -46,7 +46,7 @@
 		    }
 				 with (document.getElementById("memberForm")) {
 			            method = "post";
-			             action = "<%=path %>/QjServlet?mode=list&pageNoStr="+pageNo;
+			             action = "<%=path %>/QjServlet?mode=result&pageNoStr="+pageNo;
 			            submit();
 			        }
 		}
@@ -63,7 +63,7 @@
 		    }  
 		    with (document.getElementById("memberForm")) {
 		        method = "post";
-		        action = "<%=path %>/QjServlet?mode=list&pageNoStr="+pageNo;
+		        action = "<%=path %>/QjServlet?mode=result&pageNoStr="+pageNo;
 		        submit();
 		    }
 		}
@@ -73,7 +73,7 @@
 		   var totlePage='<%=totlePage%>';
 			with (document.getElementById("memberForm")) {
 	            method = "post";
-	            action = "<%=path %>/QjServlet?mode=list&pageNoStr="+totlePage;
+	            action = "<%=path %>/QjServlet?mode=result&pageNoStr="+totlePage;
 	            submit();
 	        }
 		}
@@ -82,7 +82,7 @@
 		{ 
 			with (document.getElementById("memberForm")) {
 	            method = "post";
-	            action = "<%=path %>/QjServlet?mode=list";
+	            action = "<%=path %>/QjServlet?mode=result";
 	            submit();
 	        }
 		}
@@ -141,7 +141,7 @@
              <td align="center" nowrap="nowrap" bgcolor="#f1f1f1"><strong>班主任审核</strong></td>
               <td align="center" nowrap="nowrap" bgcolor="#f1f1f1"><strong>辅导员审核</strong></td>
                <td align="center" nowrap="nowrap" bgcolor="#f1f1f1"><strong>主管审核</strong></td>
-           <td align="center" nowrap="nowrap" bgcolor="#f1f1f1"><strong>操作</strong></td>
+           <td align="center" nowrap="nowrap" bgcolor="#f1f1f1"><strong>请假结果</strong></td>
          </tr>
           <%for(int i=0;i<list.size();i++){ 
         	Qj bean = (Qj)list.get(i);
@@ -153,17 +153,13 @@
            <td align="center"><%=bean.getBtimes() %></td>
            <td align="center"><%=bean.getEtimes() %></td>
            <td align="center"><%=bean.getDescs() %></td>
-            <td align="center"><img alt="" src="<%=pic %>"> </td>
-            <td align="center"><%=bean.getStates() %></td>
-             <td align="center"><%=bean.getS1() %></td>
-              <td align="center"><%=bean.getS2() %></td>
-               <td align="center"><%=bean.getS3() %></td>
-                <td align="center"><%=bean.getS4() %></td>
-			   <%if("已撤销".equals(bean.getResult())){ %>
-			   	<td align="center">已撤销</td>
-			   <%}else{ %>
-			   <td><a id="DataGrid1_ctl08_LinkButton1" href="<%=path %>/QjServlet?mode=cancel&id=<%=bean.getId() %>">撤销</a></td>
-			   <%} %>
+           <td align="center"><img alt="" src="<%=pic %>"> </td>
+           <td align="center"><%=bean.getStates() %></td>
+           <td align="center"><%=bean.getS1() %></td>
+           <td align="center"><%=bean.getS2() %></td>
+           <td align="center"><%=bean.getS3() %></td>
+           <td align="center"><%=bean.getS4() %></td>
+           <td align="center"><%=bean.getResult() %></td>
          </tr>
          <%} %>
        </table>

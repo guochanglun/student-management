@@ -12,6 +12,7 @@ public class Qj {
 	private String s2;
 	private String s3;
 	private String s4;
+	private String result;
 	private int yx;
 	private int bj;
 	private int sid;
@@ -93,6 +94,12 @@ public class Qj {
 	}
 	public void setSid(int sid) {
 		this.sid = sid;
+	}
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
 	}
 	
 	

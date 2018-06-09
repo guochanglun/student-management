@@ -5,6 +5,7 @@
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+    String roles=request.getSession().getAttribute("roles").toString();
    	Page pageBean = (Page)request.getAttribute("page");
 	int pageNo = pageBean.getPageNo();
 	int totlePage = pageBean.getTotlePage();
@@ -134,7 +135,9 @@
             <td align="center" nowrap="nowrap" bgcolor="#f1f1f1"><strong>所属院系</strong></td>
             <td align="center" nowrap="nowrap" bgcolor="#f1f1f1"><strong>所属班级</strong></td>
             <td align="center" nowrap="nowrap" bgcolor="#f1f1f1"><strong>角色</strong></td>
+            <%if(roles.equals("系统管理员")){ %>
            <td align="center" nowrap="nowrap" bgcolor="#f1f1f1"><strong>操作</strong></td>
+           <% } %>
          </tr>
           <%for(int i=0;i<list.size();i++){ 
         	Stu bean = (Stu)list.get(i);
@@ -148,8 +151,10 @@
             <td align="center"><%=ValueBean.getValueByYxId(bean.getYx()) %></td>
              <td align="center"><%=ValueBean.getBjNameById(bean.getBj()) %></td>
             <td align="center"><%=bean.getRoles() %></td>
+            <%if(roles.equals("系统管理员")){ %>
 		   <td>
 		   <a id="DataGrid1_ctl08_LinkButton1" href="<%=path %>/StuServlet?mode=deletes&id=<%=bean.getId() %>">删除</a></td>
+		   <% } %>
          </tr>
          <%} %>
        </table>

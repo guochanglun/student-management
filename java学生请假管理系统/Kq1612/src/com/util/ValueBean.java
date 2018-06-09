@@ -25,6 +25,8 @@ public class ValueBean {
 			result=rs.getString("names");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			util.closeConn(conn);
 		}
 		return result;
 	}
@@ -42,6 +44,8 @@ public class ValueBean {
 			result=rs.getString("names");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			util.closeConn(conn);
 		}
 		return result;
 	}
@@ -59,6 +63,8 @@ public class ValueBean {
 			result=rs.getString("realname");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			util.closeConn(conn);
 		}
 		return result;
 	}
@@ -76,6 +82,8 @@ public class ValueBean {
 			result=rs.getString("realname");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			util.closeConn(conn);
 		}
 		return result;
 	}

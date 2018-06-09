@@ -101,6 +101,9 @@ public class AddQjServlet extends HttpServlet {
 			boolean result = Sentiment.classify(descs);
 			if(!result){
 				System.out.println("用词情感太消极");
+				request.getRequestDispatcher("sentiment.jsp").forward(
+						request, response);
+				return;
 			}
 			etimes = smartUpload.getRequest().getParameter("etimes");
 			Files allFiles = smartUpload.getFiles();
@@ -151,7 +154,7 @@ public class AddQjServlet extends HttpServlet {
 
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
-
+			util.closeConn(conn);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

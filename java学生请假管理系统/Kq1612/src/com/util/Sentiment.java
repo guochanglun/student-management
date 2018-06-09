@@ -2,15 +2,17 @@ package com.util;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.huaban.analysis.jieba.JiebaSegmenter;
-import com.huaban.analysis.jieba.SegToken;
-import com.huaban.analysis.jieba.Word;
 import com.huaban.analysis.jieba.JiebaSegmenter.SegMode;
+import com.huaban.analysis.jieba.SegToken;
 
 public class Sentiment {
 	private static List<String> negList;
@@ -20,26 +22,30 @@ public class Sentiment {
 	private static JiebaSegmenter segmenter = new JiebaSegmenter();
 	
 	static{
-		String negtiveFileName = "src/negtive.txt";
-		String positiveFileName = "src/positive.txt";
-		String notFileName = "src/not.txt";
+		String negtiveFileName = "C:/Users/游/Desktop/student-management/java学生请假管理系统/Kq1612/src/negtive.txt";
+		String positiveFileName = "C:/Users/游/Desktop/student-management/java学生请假管理系统/Kq1612/src/positive.txt";
+		String notFileName = "C:/Users/游/Desktop/student-management/java学生请假管理系统/Kq1612/src/not.txt";
 		
 		File negtiveFile = new File(negtiveFileName);
 		File positiveFile = new File(positiveFileName);
 		File notFile = new File(notFileName);
 		
 		try{
-			BufferedReader negBufferedReader = new BufferedReader(new FileReader(negtiveFile));
-			BufferedReader posBufferedReader = new BufferedReader(new FileReader(positiveFile));
-			BufferedReader notBufferedReader = new BufferedReader(new FileReader(notFile));
+			BufferedReader negBufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(negtiveFile), Charset.forName("utf-8")));
+			BufferedReader posBufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(positiveFile), Charset.forName("utf-8")));
+			BufferedReader notBufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(notFile), Charset.forName("utf-8")));
 			
 			negList = getListFromBufferedReader(negBufferedReader);
 			posList = getListFromBufferedReader(posBufferedReader);
 			notList = getListFromBufferedReader(notBufferedReader);
 			
-			negBufferedReader.close();
-			posBufferedReader.close();
-			notBufferedReader.close();
+			System.out.println(negList);
+			System.out.println(posList);
+			System.out.println(notList);
+			
+//			negBufferedReader.close();
+//			posBufferedReader.close();
+//			notBufferedReader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -58,8 +64,9 @@ public class Sentiment {
 		String preWord = "";
 		
 		for(SegToken token: segTokenList){
-			String word = token.toString();
-			System.out.println(word);
+			String word = token.word;
+			if(word.trim().length() == 0) continue;
+//			System.out.println(word);
 			if((negList.contains(word) && !"".equals(preWord) && !notList.contains(preWord)) || 
 					(posList.contains(word) && !"".equals(preWord) && notList.contains(preWord))) {
 				negtiveScore *= 2.0 / (negList.size() + 1);
@@ -75,6 +82,7 @@ public class Sentiment {
 			}
 			preWord = word;
 		}
+		System.out.println("--------------------------------------------------");
 		System.out.println("negtiveScore: " + negtiveScore);
 		System.out.println("positiveScore: " + positiveScore);
 		System.out.println("--------------------------------------------------");

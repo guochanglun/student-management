@@ -75,7 +75,7 @@ public class QjServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
 		request.setCharacterEncoding("UTF-8");
 		String mode = request.getParameter("mode");
 		String pageNoStr = request.getParameter("pageNoStr") == null ? "1"
@@ -135,6 +135,7 @@ public class QjServlet extends HttpServlet {
 					bean.setS2(rs.getString("s2"));
 					bean.setS3(rs.getString("s3"));
 					bean.setS4(rs.getString("s4"));
+					bean.setResult(rs.getString("result"));
 					list.add(bean);
 				}
 				Page page = new Page();
@@ -311,6 +312,60 @@ public class QjServlet extends HttpServlet {
 				page.setList(list);
 				request.setAttribute("page", page);
 				request.getRequestDispatcher("qjlist2.jsp").forward(
+						request, response);
+			}
+			
+			if (mode != null && mode.equals("result")) {
+				String bjid=session.getAttribute("bj").toString();
+				String names = request.getParameter("names");
+				String sql = " select * from qj where 1=1 and s1='通过' and s2='通过' and s3='通过' and s4='通过' and bj="+bjid;
+				String sql2 = "select count(*) from qj  where 1=1 and s1='通过' and s2='通过' and s3='通过' and s4='通过' and bj="+bjid;
+				if (names != null && !names.equals("")) {
+					sql += " and realname like '%" + names + "%'";
+					sql2 += " and realname like '%" + names + "%'";
+				}
+				sql += " limit " + m + "," + n;
+				System.out.println("-----------------  " + sql);
+				System.out.println("++++++++++++++++++  " + sql2);
+				PreparedStatement pstmt1 = conn.prepareStatement(sql);
+				PreparedStatement pstmt2 = conn.prepareStatement(sql2);
+				ResultSet rs = pstmt1.executeQuery();
+				ResultSet rs2 = pstmt2.executeQuery();
+				rs2.next();
+				totle = rs2.getInt(1);
+				int totlePage = totle / n;
+				int totlePageY = totle % n;
+				if (totlePageY != 0) {
+					totlePage = totlePage + 1;
+				}
+
+				List<Qj> list = new ArrayList<Qj>();
+				while (rs.next()) {
+					
+					Qj bean = new Qj();
+					bean.setId(rs.getInt("id"));
+					bean.setYx(rs.getInt("yx"));
+					bean.setBj(rs.getInt("bj"));
+					bean.setSid(rs.getInt("sid"));
+					bean.setStates(rs.getString("states"));
+					bean.setBtimes(rs.getString("btimes"));
+					bean.setEtimes(rs.getString("etimes"));
+					bean.setDescs(rs.getString("descs"));
+					bean.setUrl(rs.getString("url"));
+					bean.setS1(rs.getString("s1"));
+					bean.setS2(rs.getString("s2"));
+					bean.setS3(rs.getString("s3"));
+					bean.setS4(rs.getString("s4"));
+					bean.setResult(rs.getString("result"));
+					list.add(bean);
+				}
+				Page page = new Page();
+				page.setPageNo(pageNo);
+				page.setTotlePage(totlePage);
+				page.setTotle(totle);
+				page.setList(list);
+				request.setAttribute("page", page);
+				request.getRequestDispatcher("qjresult.jsp").forward(
 						request, response);
 			}
 			
@@ -650,6 +705,60 @@ public class QjServlet extends HttpServlet {
 					bean.setS2(rs.getString("s2"));
 					bean.setS3(rs.getString("s3"));
 					bean.setS4(rs.getString("s4"));
+					list.add(bean);
+				}
+				Page page = new Page();
+				page.setPageNo(pageNo);
+				page.setTotlePage(totlePage);
+				page.setTotle(totle);
+				page.setList(list);
+				request.setAttribute("page", page);
+				request.getRequestDispatcher("qjlist.jsp").forward(
+						request, response);
+			}
+			
+			if (mode != null && mode.equals("cancel")) {
+
+				String id = request.getParameter("id");
+
+				String sqlDel = "update qj set result='已撤销' where id=" + id;
+				Statement stmt = conn.createStatement();
+				stmt.executeUpdate(sqlDel);
+				String sql = " select * from qj where 1=1 and sid= "+uid;
+				String sql2 = "select count(*) from qj where 1=1 and sid= "+uid;
+				sql += " limit " + m + "," + n;
+				System.out.println("-----------------  " + sql);
+				System.out.println("++++++++++++++++++  " + sql2);
+				PreparedStatement pstmt1 = conn.prepareStatement(sql);
+				PreparedStatement pstmt2 = conn.prepareStatement(sql2);
+				ResultSet rs = pstmt1.executeQuery();
+				ResultSet rs2 = pstmt2.executeQuery();
+				rs2.next();
+				totle = rs2.getInt(1);
+				int totlePage = totle / n;
+				int totlePageY = totle % n;
+				if (totlePageY != 0) {
+					totlePage = totlePage + 1;
+				}
+
+				List<Qj> list = new ArrayList<Qj>();
+				while (rs.next()) {
+					
+					Qj bean = new Qj();
+					bean.setId(rs.getInt("id"));
+					bean.setYx(rs.getInt("yx"));
+					bean.setBj(rs.getInt("bj"));
+					bean.setSid(rs.getInt("sid"));
+					bean.setStates(rs.getString("states"));
+					bean.setBtimes(rs.getString("btimes"));
+					bean.setEtimes(rs.getString("etimes"));
+					bean.setDescs(rs.getString("descs"));
+					bean.setUrl(rs.getString("url"));
+					bean.setS1(rs.getString("s1"));
+					bean.setS2(rs.getString("s2"));
+					bean.setS3(rs.getString("s3"));
+					bean.setS4(rs.getString("s4"));
+					bean.setResult(rs.getString("result"));
 					list.add(bean);
 				}
 				Page page = new Page();

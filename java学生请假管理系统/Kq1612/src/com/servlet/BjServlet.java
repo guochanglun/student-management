@@ -21,7 +21,12 @@ import com.util.DBUtil;
 import com.util.Page;
 
 public class BjServlet extends HttpServlet {
-
+	
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * Constructor of the object.
 	 */
@@ -34,7 +39,6 @@ public class BjServlet extends HttpServlet {
 	 */
 	public void destroy() {
 		super.destroy(); // Just puts "destroy" string in log
-		// Put your code here
 	}
 
 	/**
@@ -224,5 +228,4 @@ public class BjServlet extends HttpServlet {
 	public void init() throws ServletException {
 		// Put your code here
 	}
-
 }

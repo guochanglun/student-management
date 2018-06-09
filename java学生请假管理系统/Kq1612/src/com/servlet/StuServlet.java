@@ -37,32 +37,12 @@ public class StuServlet extends HttpServlet {
 		// Put your code here
 	}
 
-	/**
-	 * The doGet method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to get.
-	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
-	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		this.doPost(request, response);
 	}
-
-	/**
-	 * The doPost method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to post.
-	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
-	 */
+	
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -114,7 +94,7 @@ public class StuServlet extends HttpServlet {
 					bean.setYx(rs.getInt("yx"));
 					bean.setBj(rs.getInt("bj"));
 					bean.setUsername(rs.getString("username"));
-					bean.setPassword(rs.getString("password"));
+					bean.setPassword("******");
 					bean.setRealname(rs.getString("realname"));
 					bean.setTel(rs.getString("tel"));
 					bean.setRoles(rs.getString("roles"));

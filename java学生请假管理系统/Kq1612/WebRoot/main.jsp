@@ -16,9 +16,7 @@
 <script type="text/javascript" src="<%=path %>/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=path %>/js/sdmenu.js"></script>
 <script type="text/javascript" src="<%=path %>/js/laydate/laydate.js"></script>
-
-</head>
-
+<head>
 <body>
 <div class="header">
 	 <div class="logo"><h3><font color="white">请假信息管理系统</font></h3></div>
@@ -85,6 +83,7 @@ window.onload = function() {
 		<%}else if(roles.equals("班主任")){  %>
 		<a href="<%=path %>/StuServlet?mode=list" target="right">学生管理</a>
 		<a href="<%=path %>/QjServlet?mode=slist2" target="right">待审核请假</a>
+		<a href="<%=path %>/QjServlet?mode=result" target="right">请假结果</a>
 		<a href="<%=path %>/KqServlet?mode=slist1" target="right">待审核考勤</a>
 		<a href="<%=path %>/KqServlet?mode=slist2" target="right">考勤查看</a>
 		<a href="<%=path %>/QjServlet?mode=tj" target="right">请假统计</a>
@@ -94,6 +93,7 @@ window.onload = function() {
 		<a href="<%=path %>/qjadd.jsp" target="right">请假添加</a>
 		<a href="<%=path %>/StuServlet?mode=list" target="right">学生管理</a>
 		<a href="<%=path %>/QjServlet?mode=slist1" target="right">待审核请假</a>
+		<a href="<%=path %>/QjServlet?mode=result" target="right">请假结果</a>
 		<a href="<%=path %>/QjServlet?mode=tj" target="right">请假统计</a>
 		<a href="<%=path %>/QjServlet?mode=tj2" target="right">缺勤率</a>
 		<a href="<%=path %>/KqServlet?mode=list" target="right">考勤管理</a>
@@ -119,13 +119,11 @@ window.onload = function() {
 </script>
  <div class="right"  id="mainFrame">
      
-      <iframe scrolling="auto" rameborder="0" src="" name="right" width="100%" height="100%"></iframe>    
+      <iframe name="right" scrolling="auto" src="welcome.html" style="margin:0; padding: 0;" width="100%" height="100%"></iframe>    
      </div>
     </div>
     
 <!-- 底部 -->
-    
-    
 
  <script>
 !function(){
